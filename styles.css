@@ -1396,6 +1396,7 @@ body {
 
 .plan__label { text-anchor: middle; }
 .plan__text--end { text-anchor: end; }
+.plan__text--start { text-anchor: start; }
 .plan__text--path { text-anchor: middle; letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; }
 .plan__prep { text-anchor: middle; font-family: var(--font-heading); font-style: italic; font-size: 15px; letter-spacing: 0; }
 
