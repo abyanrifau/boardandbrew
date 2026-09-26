@@ -187,7 +187,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Slide 1: Title (header row, then the day/night renders large)
+   Slide 1: Title (text left, one large hero render right)
    -------------------------------------------------------------------------- */
 .slide--title {
   /* Bottom clearance, level with the presenter controls */
@@ -197,8 +197,8 @@ body {
     var(--sand);
   color: var(--wood);
   display: grid;
-  grid-template-rows: auto 1fr;
-  row-gap: 4cqh;
+  grid-template-columns: 42fr 58fr;
+  column-gap: 3.4cqw;
   /* Bottom padding clears the presenter controls and the hint */
   padding: 12.5cqh var(--pad-x) calc(var(--title-bottom) + 8cqh);
 }
@@ -227,16 +227,10 @@ body {
 .title__text {
   position: relative;
   z-index: 2;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 4cqw;
+  align-self: center;
 }
 
-.title__lede {
-  max-width: 36cqw;
-  padding-bottom: 0.3cqh;
-}
+.title__lede { margin-top: 4.4cqh; }
 
 .title__logo {
   margin: 0;
@@ -245,7 +239,8 @@ body {
 
 .title__logo img {
   display: block;
-  width: 34cqw;
+  width: 100%;
+  max-width: 36cqw;
   height: auto;
 }
 
@@ -254,7 +249,7 @@ body {
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 400;
-  font-size: 1.95cqw;
+  font-size: 2.1cqw;
   letter-spacing: 0.005em;
   color: var(--wood);
   display: flex;
@@ -271,65 +266,52 @@ body {
 }
 
 .title__intro {
-  margin-top: 1.3cqh;
+  margin-top: 2.2cqh;
+  max-width: 32cqw;
   font-size: clamp(9px, 1.12cqw, 21px);
   line-height: 1.6;
   color: rgba(74, 46, 31, 0.7);
 }
 
-/* The renders are the selling point: two large cards at their own 4:3
-   ratio (nothing cropped), side by side, day set slightly higher */
-.title__cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 1.6cqw;
-  min-height: 0;
-}
-
+/* One large hero render filling the right side */
 .title-card {
   position: relative;
   margin: 0;
-  height: calc(100% - 2.6cqh);
-  max-width: 100%;
-  aspect-ratio: 4 / 3;
+  min-height: 0;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--beige);
-  box-shadow: 0 30px 60px -28px rgba(46, 28, 18, 0.55), 0 4px 12px rgba(46, 28, 18, 0.08);
+  box-shadow: 0 34px 70px -30px rgba(46, 28, 18, 0.6), 0 6px 16px rgba(46, 28, 18, 0.1);
   opacity: 0;
   transform: translateY(6cqh);
 }
-
-.title-card--day   { align-self: start; justify-self: end; }
-.title-card--night { align-self: end; justify-self: start; }
 
 .slide.is-active .title-card {
   opacity: 1;
   transform: none;
   transition:
-    opacity 1s var(--ease-out) var(--d, 0.9s),
-    transform 1.2s var(--ease-out) var(--d, 0.9s);
+    opacity 1s var(--ease-out) 0.8s,
+    transform 1.2s var(--ease-out) 0.8s;
 }
 
 .slide.is-leaving .title-card { opacity: 1; transform: none; }
-
-.title-card--night { --d: 1.2s; }
 
 .title-card img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform-origin: 62% 55%;
+  object-position: 50% 60%;
+  transform-origin: 50% 55%;
 }
 
 .slide.is-active .title-card img {
-  animation: title-zoom 24s ease-in-out 1.8s infinite alternate both;
+  animation: title-zoom 30s ease-in-out 1.8s infinite alternate both;
 }
 
 @keyframes title-zoom {
   from { transform: scale(1); }
-  to   { transform: scale(1.03); }
+  to   { transform: scale(1.05); }
 }
 
 .title-card__tag {
@@ -344,8 +326,7 @@ body {
   box-shadow: 0 4px 14px -6px rgba(46, 28, 18, 0.5);
 }
 
-.title-card--day .title-card__tag   { background: var(--off-white); color: var(--wood); }
-.title-card--night .title-card__tag { background: var(--wood); color: var(--off-white); }
+.title-card__tag { background: var(--off-white); color: var(--wood); }
 
 .hint {
   position: absolute;
@@ -383,66 +364,6 @@ body {
   50%      { opacity: 0.45; }
 }
 
-
-/* --------------------------------------------------------------------------
-   Placeholder slides (2 to 8)
-   -------------------------------------------------------------------------- */
-.slide--placeholder {
-  background:
-    radial-gradient(90% 80% at 100% 0%, rgba(232, 220, 200, 0.9) 0%, rgba(243, 236, 224, 0) 60%),
-    var(--sand);
-  color: var(--wood);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: var(--pad-y) var(--pad-x) calc(var(--pad-y) + 6cqh);
-}
-
-.ph__eyebrow {
-  position: absolute;
-  top: var(--pad-y);
-  left: var(--pad-x);
-  font-size: clamp(11px, 0.95cqw, 18px);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--wood);
-  opacity: 0.75;
-}
-
-.ph__eyebrow .sep {
-  display: inline-block;
-  margin: 0 0.9em;
-  color: var(--tan);
-}
-
-.ph__num {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 2.2cqw;
-  color: var(--tan);
-  letter-spacing: 0.04em;
-  margin-bottom: 1.6cqh;
-  display: flex;
-  align-items: center;
-  gap: 1.2cqw;
-}
-
-.ph__num::after {
-  content: "";
-  width: 5cqw;
-  height: 1px;
-  background: var(--tan);
-}
-
-.ph__title {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 7cqw;
-  line-height: 0.98;
-  letter-spacing: -0.012em;
-  color: var(--wood);
-  max-width: 80cqw;
-}
 
 /* --------------------------------------------------------------------------
    Slide 2: The Opportunity (split layout)
@@ -2154,37 +2075,8 @@ body {
   border-radius: calc(var(--radius) * 0.6);
 }
 
-/* --------------------------------------------------------------------------
-   "Render coming soon" placeholder
-   Any .media box whose image fails to load (the file isn't in images/ yet)
-   gets .is-missing from script.js and shows this card instead. Adding the
-   file with the expected name makes the real image appear on next load.
-   -------------------------------------------------------------------------- */
+/* Image box used by the sliders and collage cards */
 .media { position: relative; border-radius: var(--radius); }
-
-.media.is-missing > * { visibility: hidden; }
-
-.media.is-missing::after {
-  content: "Render coming soon";
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 3.4em;
-  text-align: center;
-  border: 1.5px dashed var(--tan);
-  border-radius: inherit;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23B98A5E' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='26' height='20' rx='3'/%3E%3Ccircle cx='11' cy='13' r='2.4'/%3E%3Cpath d='M4 23l7.5-7 5 4.5 4-3.5 7.5 6'/%3E%3C/svg%3E") no-repeat center calc(50% - 0.9em) / 2.4em auto,
-    var(--sand);
-  color: var(--tan);
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: clamp(9px, 0.85cqw, 16px);
-  letter-spacing: 0.06em;
-}
 
 /* --------------------------------------------------------------------------
    Slide 8: The Rest of the Space (tabbed before/after gallery)
@@ -2197,11 +2089,14 @@ body {
   padding: calc(var(--pad-y) + 0.5cqh) var(--pad-x) 13.5cqh;
 }
 
+/* Grid, not flex: the intro gets its own capped column plus extra right
+   padding, so it always wraps inside the slide */
 .rs__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 5cqw;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 33cqw);
+  column-gap: 4cqw;
+  align-items: end;
+  padding-right: 2cqw;
 }
 
 .rs__label,
@@ -2232,7 +2127,8 @@ body {
 }
 
 .rs__intro {
-  max-width: 38cqw;
+  min-width: 0;
+  overflow-wrap: break-word;
   font-size: clamp(9px, 1.02cqw, 20px);
   line-height: 1.6;
   color: rgba(74, 46, 31, 0.78);
@@ -2312,6 +2208,8 @@ body {
   box-shadow: 0 30px 60px -28px rgba(46, 28, 18, 0.55), 0 4px 12px rgba(46, 28, 18, 0.08);
 }
 
+.media--landscape { aspect-ratio: 4 / 3; max-width: 100%; }
+
 .ba--fill {
   width: 100%;
   height: 100%;
@@ -2336,6 +2234,13 @@ body {
 }
 
 .rs-duo__col .media--tall { height: calc(100% - 1cqh - 1.4em); }
+
+/* Text sits at the top of the panel, level with the slider, not centred */
+.rs-text {
+  align-self: start;
+  min-width: 0;
+  padding-top: 1.2cqh;
+}
 
 .rs-title {
   font-family: var(--font-heading);
@@ -2548,35 +2453,20 @@ body {
   border-left: 1px solid rgba(251, 248, 242, 0.15);
 }
 
-.ro-panel__text {
-  margin-top: 1.2cqh;
-  font-size: clamp(8px, 1cqw, 19px);
-  line-height: 1.5;
-  color: rgba(251, 248, 242, 0.8);
-}
-
-/* Clearly marked slot for contact details, to be filled in later */
-.ro-contact {
-  margin-top: 2cqh;
-  display: flex;
-  gap: 3cqw;
-  padding: 1.4cqh 1.4cqw;
-  border: 1px dashed rgba(185, 138, 94, 0.75);
-  border-radius: 14px;
-}
-
-.ro-contact dt {
-  font-size: clamp(7px, 0.72cqw, 14px);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(251, 248, 242, 0.55);
-}
-
-.ro-contact dd {
-  margin-top: 0.4cqh;
-  font-size: clamp(9px, 1.05cqw, 20px);
+.ro-email {
+  display: inline-block;
+  margin-top: 1.6cqh;
+  font-size: clamp(10px, 1.25cqw, 24px);
+  letter-spacing: 0.02em;
   color: var(--tan);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(185, 138, 94, 0.45);
+  padding-bottom: 0.15em;
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
 }
+
+.ro-email:hover { color: var(--beige); border-color: var(--beige); }
+.ro-email:focus-visible { outline: 2px solid var(--tan); outline-offset: 3px; }
 
 /* --------------------------------------------------------------------------
    Slide 10: The Final Vision
@@ -2874,11 +2764,11 @@ body {
    Portrait / narrow layouts (container-based)
    -------------------------------------------------------------------------- */
 @container stage (max-aspect-ratio: 1/1) {
-  /* Slide 1: text on top, the two cards side by side below */
+  /* Slide 1: text on top, the hero card below */
   .slide--title {
     --title-bottom: 4.6cqh;
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
     row-gap: 4.5cqh;
     padding: calc(var(--pad-y) + 13cqw) var(--pad-x) calc(var(--title-bottom) + 15cqh);
   }
@@ -2886,18 +2776,14 @@ body {
   .title__label { font-size: 2.7cqw; letter-spacing: 0.18em; max-width: 64cqw; line-height: 1.6; }
   .title__label .sep { display: block; height: 0; overflow: hidden; margin: 0; }
 
-  .title__text { display: block; }
-  .title__lede { max-width: none; padding: 0; }
-  .title__logo img { width: 88%; }
-  .tagline { margin-top: 2.6cqh; font-size: 5.2cqw; }
+  .title__text { align-self: start; }
+  .title__lede { margin-top: 2.6cqh; }
+  .title__logo img { width: 88%; max-width: none; }
+  .tagline { font-size: 5.2cqw; }
   .tagline::before { width: 7cqw; margin-right: 2.4cqw; }
   .title__intro { margin-top: 1.4cqh; max-width: none; font-size: 3.5cqw; line-height: 1.5; }
 
-  /* Too narrow for side by side at a useful size: stack diagonally */
-  .title__cards { display: block; position: relative; }
-  .title-card { position: absolute; width: 78%; height: auto; border-radius: 18px; }
-  .title-card--day   { top: 0; left: 0; }
-  .title-card--night { bottom: 0; right: 0; }
+  .title-card { border-radius: 18px; }
   .title-card__tag { font-size: 2.7cqw; left: 2.6cqw; bottom: 2.6cqw; }
 
   /* Stacked above the controls pill so the two never collide */
@@ -2906,11 +2792,6 @@ body {
 
   .controls { bottom: calc(4.6cqh + 1.2cqh); }
 
-  .ph__eyebrow { font-size: 2.7cqw; }
-  .ph__num { font-size: 6cqw; gap: 3cqw; }
-  .ph__num::after { width: 12cqw; }
-  .ph__title { font-size: 13cqw; max-width: none; }
-  .slide--placeholder { padding-bottom: calc(var(--pad-y) + 12cqh); }
 
   /* Slide 2: photos on top, brown panel below */
   .slide--opportunity {
@@ -3129,7 +3010,7 @@ body {
   .slide--vision::-webkit-scrollbar { display: none; }
 
   /* Slide 8: tabs scroll sideways; slider on top, text below */
-  .rs__header { display: block; }
+  .rs__header { display: block; padding-right: 0; }
   .rs__label, .ro__label, .fv__label { font-size: 2.7cqw; }
   .rs__heading, .ro__heading { margin-top: 1.4cqh; font-size: 8.2cqw; }
   .rs__intro { margin-top: 1.6cqh; max-width: none; font-size: 3.5cqw; line-height: 1.55; }
@@ -3178,11 +3059,9 @@ body {
   .phase__list li::before { width: 2cqw; }
   .ro-panel { grid-template-columns: 1fr; row-gap: 4cqw; margin-top: 4cqh; padding: 5cqw; border-radius: 20px; }
   .ro-panel__title { font-size: 6cqw; }
-  .ro-steps, .ro-panel__text { font-size: 3.5cqw; }
+  .ro-steps { font-size: 3.5cqw; }
+  .ro-email { font-size: 4cqw; }
   .ro-panel__col--contact { padding: 4cqw 0 0; border-left: 0; border-top: 1px solid rgba(251, 248, 242, 0.15); }
-  .ro-contact { flex-direction: column; gap: 2cqw; padding: 3cqw 4cqw; }
-  .ro-contact dt { font-size: 2.5cqw; }
-  .ro-contact dd { font-size: 3.6cqw; }
 
   /* Slide 10: night image, then text, then the three small images */
   .slide--vision { display: flex; flex-direction: column; }
@@ -3210,7 +3089,7 @@ body {
 
 /* Very short landscape (phones held sideways) */
 @container stage (max-height: 420px) {
-  .title__label, .ph__eyebrow { font-size: 10px; }
+  .title__label { font-size: 10px; }
   .hint { display: none; }
 }
 

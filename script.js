@@ -512,20 +512,6 @@
     layoutSlide.addEventListener("slide:leave", function () { setHot(null); });
   }
 
-  /* ---------- Missing renders: "Render coming soon" placeholders ----------
-     Any image inside a .media box that fails to load marks the box
-     .is-missing, and CSS swaps in the placeholder card. Dropping the file
-     into images/ with the expected name shows the real image on next load. */
-  Array.prototype.forEach.call(document.querySelectorAll(".media img"), function (img) {
-    var mark = function () {
-      var box = img.closest(".media");
-      if (box) box.classList.add("is-missing");
-    };
-    img.addEventListener("error", mark);
-    // Errors that fired before this script ran
-    if (img.complete && img.naturalWidth === 0) mark();
-  });
-
   /* ---------- Tabbed gallery (slide 8) ---------- */
   var restSlide = document.querySelector(".slide--rest");
   if (restSlide) {

@@ -8,8 +8,7 @@
   <meta name="description" content="Business proposal for Board & Brew, a beach cafe bar in Thulusdhoo, Maldives.">
   <link rel="preload" href="fonts/ArsenicaTrial-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="fonts/HelveticaNeueLight.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="images/slide1-day.jpg" as="image">
-  <link rel="preload" href="images/slide1-night.jpg" as="image">
+  <link rel="preload" href="images/hero-whole-area.jpg" as="image">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,16 +27,10 @@
         </div>
       </div>
 
-      <div class="title__cards">
-        <figure class="title-card title-card--day">
-          <img src="images/slide1-day.jpg" alt="Daytime render of the new L-shaped bar under the tree, with thatched roof, rattan stools and woven pendant lamps">
-          <figcaption class="title-card__tag">By day</figcaption>
-        </figure>
-        <figure class="title-card title-card--night">
-          <img src="images/slide1-night.jpg" alt="Night render of the same bar with the tree and roof lit by string lights and glowing lanterns">
-          <figcaption class="title-card__tag">By night</figcaption>
-        </figure>
-      </div>
+      <figure class="title-card title-card--hero">
+        <img src="images/hero-whole-area.jpg" alt="The whole cafe renovated, seen at golden hour: a thatched pavilion with the Board &amp; Brew sign, linen drapes, rattan chairs and warm string lights">
+        <figcaption class="title-card__tag">The renovated cafe</figcaption>
+      </figure>
 
       <p class="hint reveal" style="--i:5" id="hint">
         <span class="hint__keys">Press space or <span aria-hidden="true">&rarr;</span><span class="visually-hidden">right arrow</span> to begin</span>
@@ -601,7 +594,7 @@
             <span class="zone-card__num">04</span>
             <div class="zone-card__text">
               <h3 class="zone-card__title">The Lounge</h3>
-              <p class="zone-card__body">By the reef edge. Half covered for seating, music setups and events; half open with hut seating.</p>
+              <p class="zone-card__body">By the reef edge. Half covered for seating, music setups and events; half with shaded cabana seating.</p>
             </div>
           </li>
       </ol>
@@ -692,12 +685,12 @@
             </div>
             </div>
             <div class="rs-duo__col">
-              <p class="rs-duo__label">Right: hut seating</p>
+              <p class="rs-duo__label">Right: covered seating</p>
               <div class="media media--tall">
               <div class="ba ba--fill" data-no-advance data-no-intro>
                 <img class="ba__img" src="images/rest-lounge-right-before.jpg" alt="The right side of the lounge area today" draggable="false">
                 <div class="ba__after">
-                  <img class="ba__img" src="images/rest-lounge-right-after.jpg" alt="Render of the right lounge with open-air thatched huts" draggable="false">
+                  <img class="ba__img" src="images/rest-lounge-right-after.jpg" alt="Render of the right lounge with shaded cabana seating" draggable="false">
                 </div>
                 <span class="ba__tag ba__tag--before">Before</span>
                 <span class="ba__tag ba__tag--after">After</span>
@@ -711,15 +704,15 @@
           </div>
           <div class="rs-text">
             <h3 class="rs-title">The Lounge</h3>
-            <p class="rs-body">By the reef edge. The left side is half covered, with lounge seating and a small stage for music and events; the right side has open-air thatched huts.</p>
-            <ul class="rs-pills"><li class="pill">Live music</li><li class="pill">Events</li><li class="pill">Hut seating</li></ul>
+            <p class="rs-body">By the reef edge. The left side is half covered, with lounge seating and a small stage for music and events; the right side has shaded cabana seating.</p>
+            <ul class="rs-pills"><li class="pill">Live music</li><li class="pill">Events</li><li class="pill">Covered seating</li></ul>
           </div>
         </section>
         <section class="rs-panel" id="rs-panel-entrance" role="tabpanel" aria-labelledby="rs-tab-entrance" aria-hidden="true">
           <div class="rs-media">
-            <div class="media media--tall">
+            <div class="media media--tall media--landscape">
               <div class="ba ba--fill" data-no-advance data-no-intro>
-                <img class="ba__img" src="images/rest-entrance-before.jpg" alt="The entrance today, with a green metal arch and red signage" draggable="false">
+                <img class="ba__img" src="images/rest-entrance-before.jpg" alt="The entrance today, with a metal arch and red signage beside the path" draggable="false">
                 <div class="ba__after">
                   <img class="ba__img" src="images/rest-entrance-after.jpg" alt="Render of the bamboo and timber entrance arch with rattan lanterns" draggable="false">
                 </div>
@@ -822,12 +815,7 @@
         </div>
         <div class="ro-panel__col ro-panel__col--contact">
           <h3 class="ro-panel__title">Prepared by Nuit Works</h3>
-          <p class="ro-panel__text">Get in touch to discuss the next steps.</p>
-          <!-- Contact details: replace the placeholders below -->
-          <dl class="ro-contact">
-            <div><dt>Phone</dt><dd class="ro-contact__todo">[phone]</dd></div>
-            <div><dt>Email</dt><dd class="ro-contact__todo">[email]</dd></div>
-          </dl>
+          <a class="ro-email" href="mailto:hello@nuit.works">hello@nuit.works</a>
         </div>
       </div>
     </section>
