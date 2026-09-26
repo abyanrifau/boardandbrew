@@ -377,7 +377,8 @@
     // Play once per visit: far left, sweep to far right, settle in the middle
     baSlide.addEventListener("slide:enter", function () {
       stopIntro();
-      if (reduceMotion) { setPos(50); return; }
+      // data-no-intro: sliders in hidden tabs just sit at the middle
+      if (reduceMotion || ba.hasAttribute("data-no-intro")) { setPos(50); return; }
       setPos(0);
       var job = { cancelled: false };
       baIntro = job;
@@ -509,6 +510,56 @@
       el.addEventListener("click", function () { setHot(zone); });
     });
     layoutSlide.addEventListener("slide:leave", function () { setHot(null); });
+  }
+
+  /* ---------- Missing renders: "Render coming soon" placeholders ----------
+     Any image inside a .media box that fails to load marks the box
+     .is-missing, and CSS swaps in the placeholder card. Dropping the file
+     into images/ with the expected name shows the real image on next load. */
+  Array.prototype.forEach.call(document.querySelectorAll(".media img"), function (img) {
+    var mark = function () {
+      var box = img.closest(".media");
+      if (box) box.classList.add("is-missing");
+    };
+    img.addEventListener("error", mark);
+    // Errors that fired before this script ran
+    if (img.complete && img.naturalWidth === 0) mark();
+  });
+
+  /* ---------- Tabbed gallery (slide 8) ---------- */
+  var restSlide = document.querySelector(".slide--rest");
+  if (restSlide) {
+    var restTabs = restSlide.querySelectorAll(".rs-tab");
+    var restPanels = restSlide.querySelectorAll(".rs-panel");
+
+    var showPanel = function (key) {
+      Array.prototype.forEach.call(restTabs, function (t) {
+        var on = t.getAttribute("data-panel") === key;
+        t.classList.toggle("is-active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.setAttribute("tabindex", on ? "0" : "-1");
+        if (on && t.scrollIntoView && restSlide.scrollHeight > restSlide.clientHeight) {
+          // keep the active tab visible in the sideways-scrolling row on phones
+          t.parentNode.scrollTo({ left: t.offsetLeft - t.parentNode.clientWidth / 2 + t.clientWidth / 2, behavior: "smooth" });
+        }
+      });
+      Array.prototype.forEach.call(restPanels, function (pnl) {
+        var on = pnl.id === "rs-panel-" + key;
+        pnl.classList.toggle("is-active", on);
+        pnl.setAttribute("aria-hidden", on ? "false" : "true");
+      });
+    };
+
+    Array.prototype.forEach.call(restTabs, function (t) {
+      t.addEventListener("click", function () { showPanel(t.getAttribute("data-panel")); });
+      // Mouse clicks don't keep focus, so Space and arrows still drive the deck
+      t.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    });
+
+    // Each visit opens on the first tab
+    restSlide.addEventListener("slide:leave", function () {
+      setTimeout(function () { showPanel(restTabs[0].getAttribute("data-panel")); }, TRANSITION_MS);
+    });
   }
 
   /* ---------- Init ---------- */
