@@ -965,6 +965,263 @@ body {
 .mini-card:first-child img { max-height: 62%; }
 
 /* --------------------------------------------------------------------------
+   Slide 4: Brand Identity
+   -------------------------------------------------------------------------- */
+.slide--identity {
+  background: var(--off-white);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: 4.2cqh;
+  /* Bottom padding keeps the texture row clear of the presenter controls */
+  padding: calc(var(--pad-y) + 1cqh) var(--pad-x) 14cqh;
+}
+
+.bi__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 5cqw;
+}
+
+.bi__label,
+.bi__band-title {
+  font-size: clamp(8px, 0.95cqw, 18px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tan);
+  font-weight: 300;
+}
+
+.bi__label .sep {
+  display: inline-block;
+  margin: 0 0.9em;
+  opacity: 0.7;
+}
+
+.bi__heading {
+  margin-top: 2cqh;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 3.3cqw;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--wood);
+}
+
+.bi__intro {
+  max-width: 36cqw;
+  font-size: clamp(9px, 1.02cqw, 20px);
+  line-height: 1.6;
+  color: rgba(74, 46, 31, 0.78);
+  padding-bottom: 0.4cqh;
+}
+
+.bi__band-title {
+  font-size: clamp(7px, 0.78cqw, 15px);
+  margin-bottom: 1.6cqh;
+}
+
+.bi__band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.6cqw;
+  min-height: 0;
+}
+
+.bi__palette,
+.bi__type {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Colour swatches */
+.swatches {
+  list-style: none;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.9cqw;
+}
+
+.swatches > li { min-height: 0; }
+
+.swatch {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--off-white);
+  border: 1px solid rgba(232, 220, 200, 0.9);
+  box-shadow: 0 16px 30px -22px rgba(46, 28, 18, 0.45);
+  transition: translate 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
+}
+
+.swatch:hover {
+  translate: 0 -0.9cqh;
+  box-shadow: 0 24px 36px -22px rgba(46, 28, 18, 0.55);
+}
+
+/* Fixed share (not flex) so every label row lines up, however the text wraps */
+.swatch__colour {
+  flex: none;
+  height: 62%;
+}
+
+/* Off-white disappears against the card, so give its colour block an edge */
+.swatch--outline .swatch__colour { box-shadow: inset 0 -1px 0 var(--beige); }
+
+.swatch__name {
+  margin-top: 1.3cqh;
+  padding: 0 0.75cqw;
+  font-family: var(--font-heading);
+  font-size: clamp(9px, 1.08cqw, 21px);
+  line-height: 1.1;
+  /* Two lines reserved so hex codes line up whether or not a name wraps */
+  min-height: 2.2em;
+  color: var(--wood);
+}
+
+.swatch__hex {
+  margin-top: 0.5cqh;
+  padding: 0 0.75cqw;
+  font-size: clamp(7px, 0.72cqw, 14px);
+  letter-spacing: 0.08em;
+  color: rgba(74, 46, 31, 0.75);
+  font-variant-numeric: tabular-nums;
+}
+
+.swatch__role {
+  margin-top: auto;
+  padding: 0.6cqh 0.75cqw 1.3cqh;
+  font-size: clamp(7px, 0.68cqw, 13px);
+  line-height: 1.35;
+  color: var(--tan);
+}
+
+/* Typography cards */
+.type-cards {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2cqw;
+}
+
+.type-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.8cqw 1.8cqw 1.6cqw;
+  border-radius: var(--radius);
+  background: var(--sand);
+  box-shadow: 0 16px 30px -24px rgba(46, 28, 18, 0.4);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.type-card__aa {
+  display: block;
+  font-size: 7cqw;
+  line-height: 0.9;
+  color: var(--wood);
+  transform-origin: 0 100%;
+  transform: scale(0.86);
+}
+
+.slide.is-active .type-card__aa {
+  transform: none;
+  transition: transform 1.3s var(--ease-out) calc(0.4s + 6 * 0.14s);
+}
+
+.slide.is-leaving .type-card__aa { transform: none; }
+
+.type-card__aa--serif { font-family: var(--font-heading); }
+
+/* Only the Light cut of Helvetica Neue is installed; a hairline stroke
+   gives the specimen a medium weight without faux-bold synthesis */
+.type-card__aa--sans {
+  font-family: var(--font-body);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  -webkit-text-stroke: 0.018em currentColor;
+}
+
+.type-card__name {
+  margin-top: auto;
+  padding-top: 1.4cqh;
+  font-size: clamp(10px, 1.35cqw, 26px);
+  color: var(--wood);
+}
+
+.type-card__name--serif { font-family: var(--font-heading); }
+
+.type-card__role {
+  margin-top: 0.5cqh;
+  font-size: clamp(7px, 0.75cqw, 14px);
+  letter-spacing: 0.04em;
+  color: var(--tan);
+}
+
+.type-card__sample {
+  margin-top: 1.6cqh;
+  padding-top: 1.4cqh;
+  border-top: 1px solid rgba(185, 138, 94, 0.35);
+  font-size: clamp(8px, 0.92cqw, 18px);
+  line-height: 1.5;
+  color: rgba(74, 46, 31, 0.85);
+}
+
+.type-card__sample--serif {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(9px, 1.15cqw, 22px);
+  line-height: 1.35;
+}
+
+/* Materials and textures: small crops, so the image area stays small */
+.textures {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.2cqw;
+}
+
+.texture {
+  padding: 0.7cqw 0.7cqw 1.4cqh;
+  border-radius: var(--radius);
+  background: var(--sand);
+  box-shadow: 0 14px 28px -22px rgba(46, 28, 18, 0.4);
+}
+
+.texture img {
+  display: block;
+  width: 100%;
+  height: 9.5cqh;
+  object-fit: cover;
+  border-radius: calc(var(--radius) - 0.7cqw);
+  filter: sepia(0.1) saturate(0.9);
+}
+
+.texture__name {
+  margin-top: 1.3cqh;
+  padding: 0 0.4cqw;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(9px, 1.08cqw, 21px);
+  line-height: 1.15;
+  color: var(--wood);
+}
+
+.texture__note {
+  margin-top: 0.4cqh;
+  padding: 0 0.4cqw;
+  font-size: clamp(7px, 0.74cqw, 14px);
+  color: rgba(74, 46, 31, 0.7);
+}
+
+/* --------------------------------------------------------------------------
    Presenter controls
    -------------------------------------------------------------------------- */
 .controls {
@@ -1179,6 +1436,53 @@ body {
   .identity__logo { width: 72%; margin-top: 4cqw; }
   .identity-row { gap: 3cqw; }
   .mini-card { border-radius: 16px; }
+
+  /* Slide 4: stacked, scrolls vertically inside itself; palette 3x2,
+     type cards stacked, textures in a horizontal scroll row */
+  .slide--identity {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    padding: calc(var(--pad-y) + 2cqw) var(--pad-x) calc(4.6cqh + 5cqh + 24px);
+  }
+  .slide--identity::-webkit-scrollbar { display: none; }
+  .bi__header { display: block; }
+  .bi__label { font-size: 2.7cqw; }
+  .bi__heading { margin-top: 1.6cqh; font-size: 8.4cqw; }
+  .bi__intro { margin-top: 1.6cqh; max-width: none; font-size: 3.5cqw; line-height: 1.55; }
+  .bi__band-title { font-size: 2.6cqw; margin-bottom: 1.6cqh; }
+  .bi__band { display: block; margin-top: 4cqh; }
+  .swatches { grid-template-columns: repeat(3, 1fr); gap: 2.6cqw; }
+  .swatch { border-radius: 18px; }
+  .swatch__colour { flex: none; height: 20cqw; }
+  .swatch__name { font-size: 3.7cqw; margin-top: 1.2cqh; padding: 0 2.4cqw; min-height: 0; }
+  .swatch__hex { font-size: 2.6cqw; padding: 0 2.4cqw; }
+  .swatch__role { font-size: 2.5cqw; padding: 0.6cqh 2.4cqw 1.4cqh; margin-top: 0.4cqh; }
+  .bi__type { margin-top: 4cqh; }
+  .type-cards { grid-template-columns: 1fr; gap: 3cqw; }
+  .type-card { padding: 5cqw; border-radius: 18px; }
+  .type-card__aa { font-size: 17cqw; }
+  .type-card__name { font-size: 5cqw; padding-top: 1.6cqh; }
+  .type-card__role { font-size: 3cqw; }
+  .type-card__sample { font-size: 3.4cqw; }
+  .type-card__sample--serif { font-size: 4.3cqw; }
+  .bi__materials { margin-top: 4cqh; }
+  .textures {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: 3cqw;
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: 0 var(--pad-x) 2cqw;
+    scroll-padding: 0 var(--pad-x);
+  }
+  .textures::-webkit-scrollbar { display: none; }
+  .texture { flex: 0 0 40cqw; scroll-snap-align: start; padding: 2cqw 2cqw 1.4cqh; border-radius: 18px; }
+  .texture img { height: 22cqw; border-radius: 12px; }
+  .texture__name { font-size: 3.9cqw; padding: 0 1cqw; }
+  .texture__note { font-size: 2.8cqw; padding: 0 1cqw; }
 
   /* Controls sit over the brown panel here */
   .stage[data-theme="split"] .controls {

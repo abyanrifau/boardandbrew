@@ -152,6 +152,7 @@
   var wheelLocked = false;
   var lastWheelAt = 0;
   var lastNavAt = 0;
+  var lastInnerScrollAt = 0;
 
   function tryUnlockWheel() {
     var now = Date.now();
@@ -172,6 +173,19 @@
     // A slide that scrolls internally (stacked portrait layouts) scrolls first
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && canScroll(slides[index], e.deltaY) &&
         Date.now() - lastNavAt > WHEEL_COOLDOWN_MS) {
+      lastInnerScrollAt = Date.now();
+      return;
+    }
+    // Reaching the end of an inner scroll doesn't flip the slide on the same
+    // gesture; momentum has to settle and a fresh scroll moves on
+    if (Date.now() - lastInnerScrollAt < 450) {
+      e.preventDefault();
+      lastInnerScrollAt = Date.now();
+      return;
+    }
+    // Sideways scrolling inside a horizontal row (e.g. mobile texture strip)
+    var row = e.target.closest && e.target.closest("[data-no-swipe]");
+    if (row && Math.abs(e.deltaX) > Math.abs(e.deltaY) && row.scrollWidth > row.clientWidth + 1) {
       return;
     }
     e.preventDefault();
@@ -191,7 +205,11 @@
   var touchX = 0, touchY = 0, touchT = 0, touching = false;
 
   stage.addEventListener("touchstart", function (e) {
-    if (e.touches.length !== 1) { touching = false; return; }
+    // Horizontal scroll rows handle their own sideways drags
+    if (e.touches.length !== 1 || (e.target.closest && e.target.closest("[data-no-swipe]"))) {
+      touching = false;
+      return;
+    }
     touching = true;
     touchX = e.touches[0].clientX;
     touchY = e.touches[0].clientY;
