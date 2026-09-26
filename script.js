@@ -286,6 +286,9 @@
   /* ---------- URL hash ---------- */
   window.addEventListener("hashchange", function () {
     goTo(indexFromHash());
+    // Out-of-range links (e.g. #12) settle on the nearest slide; show its real number
+    var hash = "#" + (index + 1);
+    if (window.location.hash !== hash) history.replaceState(null, "", hash);
   });
 
   /* ---------- Before / after comparison (any .ba card) ----------
@@ -485,6 +488,27 @@
         menuToggle.addEventListener(t, function (e) { e.stopPropagation(); }, { passive: true });
       });
     }
+  }
+
+  /* ---------- The layout (slide 7): plan zones <-> zone cards ---------- */
+  var layoutSlide = document.querySelector(".slide--layout");
+  if (layoutSlide) {
+    var zoneEls = layoutSlide.querySelectorAll("[data-zone]");
+    var setHot = function (zone) {
+      Array.prototype.forEach.call(zoneEls, function (el) {
+        el.classList.toggle("is-hot", !!zone && el.getAttribute("data-zone") === zone);
+      });
+    };
+    Array.prototype.forEach.call(zoneEls, function (el) {
+      var zone = el.getAttribute("data-zone");
+      el.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") setHot(zone); });
+      el.addEventListener("pointerleave", function (e) { if (e.pointerType !== "touch") setHot(null); });
+      el.addEventListener("focus", function () { setHot(zone); });
+      el.addEventListener("blur", function () { setHot(null); });
+      // Taps highlight a zone on touch screens (the containers are data-no-advance)
+      el.addEventListener("click", function () { setHot(zone); });
+    });
+    layoutSlide.addEventListener("slide:leave", function () { setHot(null); });
   }
 
   /* ---------- Init ---------- */
