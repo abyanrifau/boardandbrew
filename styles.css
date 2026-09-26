@@ -256,7 +256,7 @@ body {
   position: absolute;
   z-index: 3;
   left: var(--pad-x);
-  bottom: calc(var(--marquee-h) + 5.2cqh);
+  bottom: calc(var(--title-bottom) + 5.2cqh);
   max-width: 70cqw;
 }
 
@@ -299,7 +299,7 @@ body {
   position: absolute;
   z-index: 3;
   left: 50%;
-  bottom: calc(var(--marquee-h) + 2.6cqh);
+  bottom: calc(var(--title-bottom) + 2.6cqh);
   translate: -50% 0;
   font-size: clamp(10px, 0.85cqw, 16px);
   letter-spacing: 0.2em;
@@ -331,59 +331,8 @@ body {
   50%      { opacity: 0.45; }
 }
 
-/* Marquee */
-.slide--title { --marquee-h: 5.4cqh; }
-
-.marquee {
-  position: absolute;
-  z-index: 3;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--marquee-h);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background: rgba(74, 46, 31, 0.62);
-  -webkit-backdrop-filter: blur(10px) saturate(1.1);
-  backdrop-filter: blur(10px) saturate(1.1);
-  border-top: 1px solid rgba(251, 248, 242, 0.12);
-}
-
-.marquee__track {
-  display: flex;
-  width: max-content;
-  animation: marquee 38s linear infinite;
-}
-
-.marquee__group {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.marquee span > span,
-.marquee__group > span {
-  font-family: var(--font-body);
-  font-weight: 300;
-  font-size: clamp(11px, 1.05cqw, 20px);
-  letter-spacing: 0.32em;
-  text-transform: lowercase;
-  color: var(--off-white);
-  padding: 0 1.6cqw;
-}
-
-.marquee i {
-  font-style: normal;
-  font-family: var(--font-body);
-  font-size: clamp(11px, 1.05cqw, 20px);
-  color: var(--tan);
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+/* Bottom clearance for the lockup and hint, level with the presenter controls */
+.slide--title { --title-bottom: 5.4cqh; }
 
 /* --------------------------------------------------------------------------
    Placeholder slides (2 to 8)
@@ -972,7 +921,6 @@ body {
   position: absolute;
   z-index: 10;
   right: calc(var(--pad-x) - 0.6cqw);
-  /* Sits just above slide 1's marquee strip so it never covers it */
   bottom: calc(5.4cqh + 1.6cqh);
   display: flex;
   align-items: center;
@@ -1095,7 +1043,7 @@ body {
    Portrait / narrow layouts (container-based)
    -------------------------------------------------------------------------- */
 @container stage (max-aspect-ratio: 1/1) {
-  .slide--title { --marquee-h: 4.6cqh; }
+  .slide--title { --title-bottom: 4.6cqh; }
 
   .hero__img { object-position: 56% 50%; }
 
@@ -1111,7 +1059,7 @@ body {
   .title__lockup {
     max-width: none;
     right: var(--pad-x);
-    bottom: calc(var(--marquee-h) + 15cqh);
+    bottom: calc(var(--title-bottom) + 15cqh);
   }
 
   .wordmark { font-size: 17cqw; white-space: normal; line-height: 0.92; }
@@ -1119,11 +1067,8 @@ body {
   .tagline::before { width: 7cqw; margin-right: 2.4cqw; }
 
   /* Stacked above the controls pill so the two never collide */
-  .hint { font-size: 2.8cqw; bottom: calc(var(--marquee-h) + 9.4cqh); }
+  .hint { font-size: 2.8cqw; bottom: calc(var(--title-bottom) + 9.4cqh); }
 
-  .marquee__group > span,
-  .marquee i { font-size: 3cqw; }
-  .marquee__group > span { padding: 0 3cqw; }
 
   .controls { bottom: calc(4.6cqh + 1.2cqh); }
 
@@ -1202,6 +1147,5 @@ body {
   .slide { transform: none !important; }
   .reveal { transform: none; }
   .slide--title.is-active .hero__img,
-  .marquee__track,
   .slide.is-active .hint { animation: none; }
 }
