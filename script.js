@@ -127,6 +127,11 @@
         e.preventDefault();
         goTo(total - 1);
         break;
+      case "m":
+      case "M":
+        e.preventDefault();
+        toggleMusic();
+        break;
       case "f":
       case "F":
         e.preventDefault();
@@ -545,6 +550,75 @@
     // Each visit opens on the first tab
     restSlide.addEventListener("slide:leave", function () {
       setTimeout(function () { showPanel(restTabs[0].getAttribute("data-panel")); }, TRANSITION_MS);
+    });
+  }
+
+  /* ---------- Background music ----------
+     Browsers block sound until the viewer interacts, so the track fades in
+     on the presenter's first key, click or tap. The speaker button and the
+     M key toggle it. If the audio file is missing, the button is hidden. */
+  var music = document.getElementById("bgMusic");
+  var musicBtn = document.getElementById("musicBtn");
+  var MUSIC_VOLUME = 0.32;
+  var musicWanted = true;
+  var musicFade = null;
+
+  function fadeMusic(to, ms, done) {
+    clearInterval(musicFade);
+    var from = music.volume;
+    var t0 = Date.now();
+    musicFade = setInterval(function () {
+      var k = Math.min(1, (Date.now() - t0) / ms);
+      music.volume = Math.max(0, Math.min(1, from + (to - from) * k));
+      if (k >= 1) { clearInterval(musicFade); if (done) done(); }
+    }, 40);
+  }
+
+  function setMusicUi(on) {
+    stage.classList.toggle("is-music-on", on);
+    if (musicBtn) {
+      musicBtn.setAttribute("aria-pressed", on ? "true" : "false");
+      musicBtn.setAttribute("aria-label", on ? "Pause background music" : "Play background music");
+    }
+  }
+
+  function playMusic() {
+    if (!music || musicBtn.hidden) return;
+    if (!music.paused) return;
+    music.volume = 0;
+    var p = music.play();
+    if (p && p.then) {
+      p.then(function () { setMusicUi(true); fadeMusic(MUSIC_VOLUME, 2500); }).catch(function () {});
+    }
+  }
+
+  function pauseMusic() {
+    if (!music || music.paused) return;
+    setMusicUi(false);
+    fadeMusic(0, 700, function () { music.pause(); });
+  }
+
+  function toggleMusic() {
+    if (!music || musicBtn.hidden) return;
+    musicWanted = music.paused;
+    if (musicWanted) playMusic(); else pauseMusic();
+  }
+
+  if (music && musicBtn) {
+    music.addEventListener("error", function () { musicBtn.hidden = true; });
+    if (music.error) musicBtn.hidden = true;
+    musicBtn.addEventListener("click", toggleMusic);
+    musicBtn.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    // First interaction anywhere starts the track (unless it was switched off)
+    var firstGesture = function (e) {
+      if (e.target && e.target.closest && e.target.closest("#musicBtn")) return;
+      if (musicWanted) playMusic();
+      ["keydown", "pointerdown", "touchstart"].forEach(function (t) {
+        document.removeEventListener(t, firstGesture, true);
+      });
+    };
+    ["keydown", "pointerdown", "touchstart"].forEach(function (t) {
+      document.addEventListener(t, firstGesture, true);
     });
   }
 

@@ -1400,7 +1400,233 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Slide 6: Menu Concept (open menu on a dark timber table)
+   Slide 6: Target Market & Strategy
+   -------------------------------------------------------------------------- */
+.slide--market {
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgba(232, 220, 200, 0.7) 0%, rgba(243, 236, 224, 0) 70%),
+    var(--sand);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  row-gap: 3cqh;
+  padding: calc(var(--pad-y) + 0.5cqh) var(--pad-x) 13.5cqh;
+}
+
+.tm__label {
+  font-size: clamp(8px, 0.95cqw, 18px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tan);
+}
+
+.tm__label .sep {
+  display: inline-block;
+  margin: 0 0.9em;
+  opacity: 0.7;
+}
+
+.tm__heading {
+  margin-top: 1.8cqh;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 3.1cqw;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--wood);
+}
+
+/* Market cards */
+.tm__markets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2cqw;
+  min-height: 0;
+}
+
+.market {
+  display: grid;
+  grid-template-columns: 32% minmax(0, 1fr);
+  column-gap: 2cqw;
+  min-height: 0;
+  padding: 1.4cqw;
+  border-radius: var(--radius);
+  box-shadow: 0 24px 46px -30px rgba(46, 28, 18, 0.6);
+  opacity: 0;
+  transform: translateY(6cqh);
+}
+
+.slide.is-active .market {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s var(--ease-out),
+    transform 1s var(--ease-out);
+  transition-delay: calc(0.55s + var(--m, 0) * 0.22s);
+}
+
+.slide.is-leaving .market { opacity: 1; transform: none; }
+
+.market--dark  { background: var(--wood); color: var(--off-white); }
+.market--light { background: var(--beige); color: var(--wood); }
+
+.market__img {
+  min-height: 0;
+  overflow: hidden;
+  border-radius: calc(var(--radius) * 0.7);
+}
+
+.market__img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+}
+
+.slide.is-active .market__img img {
+  transform: none;
+  transition: transform 1.6s var(--ease-out);
+  transition-delay: calc(0.55s + var(--m, 0) * 0.22s);
+}
+
+.slide.is-leaving .market__img img { transform: none; }
+
+.market__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1cqh 1cqw 1cqh 0;
+}
+
+.market__label {
+  font-size: clamp(8px, 0.82cqw, 16px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tan);
+}
+
+.market__title {
+  margin-top: 1.2cqh;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 2.6cqw;
+  line-height: 1;
+}
+
+.market__body {
+  margin-top: 1.6cqh;
+  font-size: clamp(9px, 1.02cqw, 20px);
+  line-height: 1.6;
+}
+
+.market--dark .market__body  { color: rgba(251, 248, 242, 0.8); }
+.market--light .market__body { color: rgba(74, 46, 31, 0.8); }
+
+.market__pills {
+  list-style: none;
+  margin-top: 2cqh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6cqw;
+}
+
+/* Approach card */
+.approach {
+  padding: 2.4cqh 2.8cqw 2.6cqh;
+  border-radius: var(--radius);
+  background: var(--off-white);
+  box-shadow: 0 20px 40px -30px rgba(46, 28, 18, 0.5);
+  opacity: 0;
+  transform: translateY(3cqh);
+}
+
+.slide.is-active .approach {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s var(--ease-out) 1.15s, transform 0.9s var(--ease-out) 1.15s;
+}
+
+.slide.is-leaving .approach { opacity: 1; transform: none; }
+
+.approach__label {
+  font-size: clamp(8px, 0.82cqw, 16px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--tan);
+}
+
+.approach__cols {
+  margin-top: 1.6cqh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  column-gap: 3cqw;
+}
+
+.approach__col {
+  opacity: 0;
+  transform: translateY(1.5cqh);
+}
+
+.slide.is-active .approach__col {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s var(--ease-out) var(--cd), transform 0.8s var(--ease-out) var(--cd);
+}
+
+.approach__col--left  { --cd: 1.5s; }
+.approach__col--right { --cd: 1.72s; }
+
+.slide.is-leaving .approach__col { opacity: 1; transform: none; }
+
+/* Thin tan divider that draws top to bottom */
+.approach__divider {
+  width: 1px;
+  background: var(--tan);
+  transform-origin: center top;
+  transform: scaleY(0);
+}
+
+.slide.is-active .approach__divider {
+  transform: none;
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1) 1.9s;
+}
+
+.slide.is-leaving .approach__divider { transform: none; }
+
+.approach__title {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 1.75cqw;
+  line-height: 1.1;
+  color: var(--wood);
+}
+
+.approach__body {
+  margin-top: 1cqh;
+  font-size: clamp(9px, 1cqw, 19px);
+  line-height: 1.6;
+  color: rgba(74, 46, 31, 0.8);
+}
+
+.approach__motto {
+  margin-top: 2.2cqh;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.7cqw;
+  color: var(--tan);
+  opacity: 0;
+}
+
+.slide.is-active .approach__motto {
+  opacity: 1;
+  transition: opacity 0.9s var(--ease) 2.5s;
+}
+
+.slide.is-leaving .approach__motto { opacity: 1; }
+
+/* --------------------------------------------------------------------------
+   Slide 7: Menu Concept (open menu on a dark timber table)
    -------------------------------------------------------------------------- */
 .slide--menu {
   background:
@@ -2710,7 +2936,16 @@ body {
 
 .ctrl:disabled:hover { background: transparent; }
 
+/* .ctrl sets display, which would otherwise override the hidden attribute
+   (music button with no audio file, fullscreen button where unsupported) */
+.ctrl[hidden] { display: none; }
+
 .ctrl .icon-exit { display: none; }
+
+/* Music toggle: speaker with waves when playing, crossed when off */
+.ctrl .icon-music-on { display: none; }
+.is-music-on .ctrl .icon-music-on { display: block; }
+.is-music-on .ctrl .icon-music-off { display: none; }
 .is-fullscreen .ctrl .icon-enter { display: none; }
 .is-fullscreen .ctrl .icon-exit { display: block; }
 
@@ -2994,6 +3229,33 @@ body {
   .zone-card__title { font-size: 5cqw; }
   .zone-card__body { font-size: 3.4cqw; }
   .zone-card__thumb { width: 22cqw; height: 22cqw; max-height: none; border-radius: 12px; }
+
+  /* Slide 6: market cards stacked, then the approach card, columns stacked */
+  .slide--market {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    padding: calc(var(--pad-y) + 2cqw) var(--pad-x) calc(4.6cqh + 5cqh + 24px);
+  }
+  .slide--market::-webkit-scrollbar { display: none; }
+  .tm__label { font-size: 2.7cqw; }
+  .tm__heading { margin-top: 1.4cqh; font-size: 8.2cqw; }
+  .tm__markets { grid-template-columns: 1fr; gap: 3.4cqw; margin-top: 3cqh; }
+  .market { grid-template-columns: 34% minmax(0, 1fr); column-gap: 4cqw; padding: 3.4cqw; border-radius: 20px; }
+  .market__img { border-radius: 14px; min-height: 36cqw; }
+  .market__text { padding: 1cqh 0; }
+  .market__label { font-size: 2.6cqw; }
+  .market__title { font-size: 7cqw; margin-top: 0.8cqh; }
+  .market__body { font-size: 3.4cqw; margin-top: 1cqh; line-height: 1.5; }
+  .market__pills { gap: 1.6cqw; margin-top: 1.4cqh; }
+  .approach { margin-top: 3.4cqw; padding: 5cqw; border-radius: 20px; }
+  .approach__label { font-size: 2.6cqw; }
+  .approach__cols { grid-template-columns: 1fr; row-gap: 4cqw; margin-top: 2cqh; }
+  .approach__divider { width: 100%; height: 1px; transform-origin: left center; transform: scaleX(0); }
+  .approach__title { font-size: 5.4cqw; }
+  .approach__body { font-size: 3.4cqw; }
+  .approach__motto { font-size: 5cqw; margin-top: 3cqh; }
 
   /* Slides 8-10 scroll inside themselves on portrait screens */
   .slide--rest,
