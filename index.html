@@ -8,35 +8,58 @@
   <meta name="description" content="Business proposal for Board & Brew, a beach cafe bar in Thulusdhoo, Maldives.">
   <link rel="preload" href="fonts/ArsenicaTrial-Regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="preload" href="fonts/HelveticaNeueLight.otf" as="font" type="font/otf" crossorigin>
-  <link rel="preload" href="images/slide1-hero.png" as="image">
+  <link rel="preload" href="images/slide1-day.jpg" as="image">
+  <link rel="preload" href="images/slide1-night.jpg" as="image">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="stage" id="stage" data-theme="dark" aria-roledescription="carousel" aria-label="Board & Brew business proposal">
 
     <!-- 01 Title -->
-    <section class="slide slide--title" data-theme="dark" aria-roledescription="slide" aria-label="1 of 8: Board & Brew">
-      <div class="hero">
-        <img class="hero__img" src="images/slide1-hero.png" alt="Evening render of the renovated Board & Brew bar under a lit tree with a surfboard sign">
-      </div>
-      <div class="hero__shade" aria-hidden="true"></div>
-
+    <section class="slide slide--title" data-theme="light" aria-roledescription="slide" aria-label="1 of 8: Board & Brew">
       <p class="title__label title__label--left reveal" style="--i:0">Business Proposal <span class="sep">|</span> Thulusdhoo, Maldives</p>
       <p class="title__label title__label--right reveal" style="--i:0">2026</p>
 
-      <div class="title__lockup">
-        <h1 class="wordmark reveal" style="--i:1">Board <span class="amp">&amp;</span> Brew</h1>
-        <p class="tagline reveal" style="--i:2">Where the break meets the bar.</p>
+      <div class="title__text">
+        <h1 class="title__logo reveal" style="--i:1"><img src="images/logo/logo-primary-brown.svg" alt="Board &amp; Brew"></h1>
+        <p class="tagline reveal" style="--i:2.4">Where the break meets the bar.</p>
+        <p class="title__intro reveal" style="--i:3.2">A proposal to rebrand and renovate the cafe into Thulusdhoo&rsquo;s signature beach bar.</p>
       </div>
 
-      <p class="hint reveal" style="--i:4" id="hint">
+      <div class="title__cards">
+        <figure class="title-card title-card--day">
+          <img src="images/slide1-day.jpg" alt="Daytime render of the new L-shaped bar under the tree, with thatched roof, rattan stools and woven pendant lamps">
+          <figcaption class="title-card__tag">By day</figcaption>
+        </figure>
+        <figure class="title-card title-card--night">
+          <img src="images/slide1-night.jpg" alt="Night render of the same bar with the tree and roof lit by string lights and glowing lanterns">
+          <figcaption class="title-card__tag">By night</figcaption>
+        </figure>
+      </div>
+
+      <p class="hint reveal" style="--i:5" id="hint">
         <span class="hint__keys">Press space or <span aria-hidden="true">&rarr;</span><span class="visually-hidden">right arrow</span> to begin</span>
         <span class="hint__touch">Swipe to begin</span>
       </p>
 
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span class="marquee__group">
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+          </span>
+          <span class="marquee__group">
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+            <span>surf</span><i>.</i><span>sip</span><i>.</i><span>stay</span><i>.</i>
+          </span>
+        </div>
+      </div>
     </section>
 
-    <!-- 02 to 08 placeholders -->
     <!-- 02 The Opportunity -->
     <section class="slide slide--opportunity" data-theme="split" aria-roledescription="slide" aria-label="2 of 8: The Opportunity">
       <div class="opp__panel">

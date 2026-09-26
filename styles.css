@@ -187,47 +187,19 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Slide 1: Title
+   Slide 1: Title (sand, wordmark left, day/night cards right)
    -------------------------------------------------------------------------- */
 .slide--title {
-  background: var(--wood-deep);
-  color: var(--off-white);
-}
-
-.hero {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-}
-
-.hero__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 30%;
-  transform-origin: 54% 28%;
-  transform: scale(1.02);
-  display: block;
-}
-
-.slide--title.is-active .hero__img {
-  animation: kenburns 24s ease-in-out infinite alternate;
-}
-
-@keyframes kenburns {
-  from { transform: scale(1.02) translate3d(0, 0, 0); }
-  to   { transform: scale(1.12) translate3d(-1.2%, 0.6%, 0); }
-}
-
-/* Soft brown shade from bottom-left; the top-centre (tree and sign) stays clear */
-.hero__shade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+  /* Bottom clearance: marquee strip height; controls and hint sit above it */
+  --title-bottom: 5.4cqh;
   background:
-    radial-gradient(120% 95% at 0% 100%, rgba(46, 28, 18, 0.92) 0%, rgba(46, 28, 18, 0.62) 32%, rgba(46, 28, 18, 0.12) 62%, rgba(46, 28, 18, 0) 78%),
-    linear-gradient(to top, rgba(46, 28, 18, 0.55) 0%, rgba(46, 28, 18, 0) 34%),
-    linear-gradient(to bottom, rgba(46, 28, 18, 0.45) 0%, rgba(46, 28, 18, 0) 16%);
+    radial-gradient(80% 70% at 100% 0%, rgba(232, 220, 200, 0.85) 0%, rgba(243, 236, 224, 0) 65%),
+    var(--sand);
+  color: var(--wood);
+  display: grid;
+  grid-template-columns: 45fr 55fr;
+  column-gap: 3cqw;
+  padding: 13cqh var(--pad-x) calc(var(--title-bottom) + 11cqh);
 }
 
 .title__label {
@@ -236,11 +208,10 @@ body {
   z-index: 3;
   font-family: var(--font-body);
   font-weight: 300;
-  font-size: clamp(11px, 0.95cqw, 18px);
+  font-size: clamp(8px, 0.95cqw, 18px);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--off-white);
-  text-shadow: 0 1px 12px rgba(46, 28, 18, 0.5);
+  color: var(--wood);
 }
 
 .title__label .sep {
@@ -252,48 +223,122 @@ body {
 .title__label--left  { left: var(--pad-x); }
 .title__label--right { right: var(--pad-x); }
 
-.title__lockup {
-  position: absolute;
-  z-index: 3;
-  left: var(--pad-x);
-  bottom: calc(var(--title-bottom) + 5.2cqh);
-  max-width: 70cqw;
+.title__text {
+  align-self: center;
+  position: relative;
+  z-index: 2;
 }
 
-.wordmark {
-  font-family: var(--font-heading);
-  font-weight: 400;
-  font-size: 9.4cqw;
-  line-height: 0.9;
-  letter-spacing: -0.015em;
-  color: var(--off-white);
-  text-shadow: 0 4px 40px rgba(46, 28, 18, 0.35);
-  white-space: nowrap;
+.title__logo {
+  margin: 0;
+  line-height: 0;
 }
 
-.wordmark .amp { color: var(--tan); }
+.title__logo img {
+  display: block;
+  width: 100%;
+  max-width: 40cqw;
+  height: auto;
+}
 
 .tagline {
-  margin-top: 2.2cqh;
+  margin-top: 4.4cqh;
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 400;
-  font-size: 2.2cqw;
+  font-size: 2.15cqw;
   letter-spacing: 0.005em;
-  color: var(--beige);
-  padding-left: 0.3cqw;
+  color: var(--wood);
+  display: flex;
+  align-items: center;
 }
 
 .tagline::before {
   content: "";
-  display: inline-block;
-  vertical-align: middle;
+  flex: none;
   width: 3.4cqw;
   height: 1px;
   margin-right: 1.2cqw;
   background: var(--tan);
-  transform: translateY(-0.1em);
 }
+
+.title__intro {
+  margin-top: 2.4cqh;
+  max-width: 30cqw;
+  font-size: clamp(9px, 1.12cqw, 21px);
+  line-height: 1.6;
+  color: rgba(74, 46, 31, 0.7);
+}
+
+/* Day and night cards, staggered: day sits higher, night lower */
+.title__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.8cqw;
+  min-height: 0;
+}
+
+.title-card {
+  --stagger: 3cqh;
+  position: relative;
+  margin: 0;
+  height: calc(100% - var(--stagger) * 2);
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--beige);
+  box-shadow: 0 30px 60px -28px rgba(46, 28, 18, 0.55), 0 4px 12px rgba(46, 28, 18, 0.08);
+  opacity: 0;
+  transform: translateY(6cqh);
+}
+
+.title-card--day   { align-self: start; }
+.title-card--night { align-self: end; }
+
+.slide.is-active .title-card {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 1s var(--ease-out) var(--d, 0.9s),
+    transform 1.2s var(--ease-out) var(--d, 0.9s);
+}
+
+.slide.is-leaving .title-card { opacity: 1; transform: none; }
+
+.title-card--night { --d: 1.2s; }
+
+.title-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Keeps the counter, stools and pendant lamps in frame */
+  object-position: 62% 55%;
+  transform-origin: 62% 55%;
+}
+
+.slide.is-active .title-card img {
+  animation: title-zoom 24s ease-in-out 1.8s infinite alternate both;
+}
+
+@keyframes title-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.08); }
+}
+
+.title-card__tag {
+  position: absolute;
+  z-index: 1;
+  left: clamp(8px, 1cqw, 20px);
+  bottom: clamp(8px, 1cqw, 20px);
+  padding: 0.55em 1.1em 0.5em;
+  border-radius: 999px;
+  font-size: clamp(8px, 0.78cqw, 15px);
+  letter-spacing: 0.08em;
+  box-shadow: 0 4px 14px -6px rgba(46, 28, 18, 0.5);
+}
+
+.title-card--day .title-card__tag   { background: var(--off-white); color: var(--wood); }
+.title-card--night .title-card__tag { background: var(--wood); color: var(--off-white); }
 
 .hint {
   position: absolute;
@@ -301,10 +346,10 @@ body {
   left: 50%;
   bottom: calc(var(--title-bottom) + 2.6cqh);
   translate: -50% 0;
-  font-size: clamp(10px, 0.85cqw, 16px);
+  font-size: clamp(8px, 0.85cqw, 16px);
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(251, 248, 242, 0.7);
+  color: rgba(74, 46, 31, 0.6);
   white-space: nowrap;
 }
 
@@ -331,8 +376,53 @@ body {
   50%      { opacity: 0.45; }
 }
 
-/* Bottom clearance for the lockup and hint, level with the presenter controls */
-.slide--title { --title-bottom: 5.4cqh; }
+/* Marquee strip along the bottom edge */
+.marquee {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--title-bottom);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--wood);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee__group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee__group > span {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(9px, 1.05cqw, 20px);
+  letter-spacing: 0.32em;
+  text-transform: lowercase;
+  color: var(--off-white);
+  padding: 0 1.6cqw;
+}
+
+.marquee i {
+  font-style: normal;
+  font-family: var(--font-body);
+  font-size: clamp(9px, 1.05cqw, 20px);
+  color: var(--tan);
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
 /* --------------------------------------------------------------------------
    Placeholder slides (2 to 8)
@@ -1043,28 +1133,30 @@ body {
    Portrait / narrow layouts (container-based)
    -------------------------------------------------------------------------- */
 @container stage (max-aspect-ratio: 1/1) {
-  .slide--title { --title-bottom: 4.6cqh; }
-
-  .hero__img { object-position: 56% 50%; }
-
-  .hero__shade {
-    background:
-      linear-gradient(to top, rgba(46, 28, 18, 0.95) 0%, rgba(46, 28, 18, 0.7) 26%, rgba(46, 28, 18, 0.1) 52%, rgba(46, 28, 18, 0) 62%),
-      linear-gradient(to bottom, rgba(46, 28, 18, 0.55) 0%, rgba(46, 28, 18, 0) 18%);
+  /* Slide 1: text on top, the two cards side by side below */
+  .slide--title {
+    --title-bottom: 4.6cqh;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    row-gap: 4.5cqh;
+    padding: calc(var(--pad-y) + 13cqw) var(--pad-x) calc(var(--title-bottom) + 15cqh);
   }
 
   .title__label { font-size: 2.7cqw; letter-spacing: 0.18em; max-width: 64cqw; line-height: 1.6; }
   .title__label .sep { display: block; height: 0; overflow: hidden; margin: 0; }
 
-  .title__lockup {
-    max-width: none;
-    right: var(--pad-x);
-    bottom: calc(var(--title-bottom) + 15cqh);
-  }
-
-  .wordmark { font-size: 17cqw; white-space: normal; line-height: 0.92; }
-  .tagline { font-size: 5.2cqw; margin-top: 2cqh; }
+  .title__logo img { max-width: none; width: 88%; }
+  .tagline { margin-top: 2.6cqh; font-size: 5.2cqw; }
   .tagline::before { width: 7cqw; margin-right: 2.4cqw; }
+  .title__intro { margin-top: 1.4cqh; max-width: none; font-size: 3.5cqw; line-height: 1.5; }
+
+  .title__cards { column-gap: 3cqw; }
+  .title-card { --stagger: 1.6cqh; border-radius: 20px; }
+  .title-card__tag { font-size: 2.7cqw; left: 2.6cqw; bottom: 2.6cqw; }
+
+  .marquee__group > span,
+  .marquee i { font-size: 3cqw; }
+  .marquee__group > span { padding: 0 3cqw; }
 
   /* Stacked above the controls pill so the two never collide */
   .hint { font-size: 2.8cqw; bottom: calc(var(--title-bottom) + 9.4cqh); }
@@ -1146,6 +1238,7 @@ body {
   :root { --slide-dur: 0.3s; }
   .slide { transform: none !important; }
   .reveal { transform: none; }
-  .slide--title.is-active .hero__img,
+  .slide.is-active .title-card img,
+  .marquee__track,
   .slide.is-active .hint { animation: none; }
 }
