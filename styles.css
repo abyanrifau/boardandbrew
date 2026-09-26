@@ -187,7 +187,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Slide 1: Title (sand, wordmark left, day/night cards right)
+   Slide 1: Title (header row, then the day/night renders large)
    -------------------------------------------------------------------------- */
 .slide--title {
   /* Bottom clearance, level with the presenter controls */
@@ -197,9 +197,10 @@ body {
     var(--sand);
   color: var(--wood);
   display: grid;
-  grid-template-columns: 45fr 55fr;
-  column-gap: 3cqw;
-  padding: 13cqh var(--pad-x) calc(var(--title-bottom) + 11cqh);
+  grid-template-rows: auto 1fr;
+  row-gap: 4cqh;
+  /* Bottom padding clears the presenter controls and the hint */
+  padding: 12.5cqh var(--pad-x) calc(var(--title-bottom) + 8cqh);
 }
 
 .title__label {
@@ -224,9 +225,17 @@ body {
 .title__label--right { right: var(--pad-x); }
 
 .title__text {
-  align-self: center;
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4cqw;
+}
+
+.title__lede {
+  max-width: 36cqw;
+  padding-bottom: 0.3cqh;
 }
 
 .title__logo {
@@ -236,17 +245,16 @@ body {
 
 .title__logo img {
   display: block;
-  width: 100%;
-  max-width: 40cqw;
+  width: 34cqw;
   height: auto;
 }
 
 .tagline {
-  margin-top: 4.4cqh;
+  margin: 0;
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 400;
-  font-size: 2.15cqw;
+  font-size: 1.95cqw;
   letter-spacing: 0.005em;
   color: var(--wood);
   display: flex;
@@ -263,24 +271,26 @@ body {
 }
 
 .title__intro {
-  margin-top: 2.4cqh;
-  max-width: 30cqw;
+  margin-top: 1.3cqh;
   font-size: clamp(9px, 1.12cqw, 21px);
   line-height: 1.6;
   color: rgba(74, 46, 31, 0.7);
 }
 
-/* Day and night cards at the renders' own 4:3 ratio, so the full image
-   shows. Staggered diagonally: day top-left, night bottom-right. */
+/* The renders are the selling point: two large cards at their own 4:3
+   ratio (nothing cropped), side by side, day set slightly higher */
 .title__cards {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.6cqw;
   min-height: 0;
 }
 
 .title-card {
-  position: absolute;
+  position: relative;
   margin: 0;
-  width: 52%;
+  height: calc(100% - 2.6cqh);
+  max-width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: var(--radius);
@@ -290,8 +300,8 @@ body {
   transform: translateY(6cqh);
 }
 
-.title-card--day   { top: 0; left: 0; }
-.title-card--night { bottom: 0; right: 0; }
+.title-card--day   { align-self: start; justify-self: end; }
+.title-card--night { align-self: end; justify-self: start; }
 
 .slide.is-active .title-card {
   opacity: 1;
@@ -325,11 +335,11 @@ body {
 .title-card__tag {
   position: absolute;
   z-index: 1;
-  left: clamp(8px, 1cqw, 20px);
-  bottom: clamp(8px, 1cqw, 20px);
+  left: clamp(8px, 1.2cqw, 24px);
+  bottom: clamp(8px, 1.2cqw, 24px);
   padding: 0.55em 1.1em 0.5em;
   border-radius: 999px;
-  font-size: clamp(8px, 0.78cqw, 15px);
+  font-size: clamp(8px, 0.9cqw, 17px);
   letter-spacing: 0.08em;
   box-shadow: 0 4px 14px -6px rgba(46, 28, 18, 0.5);
 }
@@ -1095,13 +1105,18 @@ body {
   .title__label { font-size: 2.7cqw; letter-spacing: 0.18em; max-width: 64cqw; line-height: 1.6; }
   .title__label .sep { display: block; height: 0; overflow: hidden; margin: 0; }
 
-  .title__logo img { max-width: none; width: 88%; }
+  .title__text { display: block; }
+  .title__lede { max-width: none; padding: 0; }
+  .title__logo img { width: 88%; }
   .tagline { margin-top: 2.6cqh; font-size: 5.2cqw; }
   .tagline::before { width: 7cqw; margin-right: 2.4cqw; }
   .title__intro { margin-top: 1.4cqh; max-width: none; font-size: 3.5cqw; line-height: 1.5; }
 
-  /* Same diagonal stack as desktop; side by side makes full 4:3 images tiny */
-  .title-card { width: 76%; border-radius: 18px; }
+  /* Too narrow for side by side at a useful size: stack diagonally */
+  .title__cards { display: block; position: relative; }
+  .title-card { position: absolute; width: 78%; height: auto; border-radius: 18px; }
+  .title-card--day   { top: 0; left: 0; }
+  .title-card--night { bottom: 0; right: 0; }
   .title-card__tag { font-size: 2.7cqw; left: 2.6cqw; bottom: 2.6cqw; }
 
   /* Stacked above the controls pill so the two never collide */
