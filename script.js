@@ -280,15 +280,18 @@
     goTo(indexFromHash());
   });
 
-  /* ---------- Before / after comparison (slide 3) ---------- */
-  var ba = document.getElementById("beforeAfter");
-  if (ba) {
+  /* ---------- Before / after comparison (any .ba card) ----------
+     data-intro-delay (ms) sets when the one-off divider sweep starts after
+     the slide appears. */
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var initBeforeAfter = function (ba) {
+    var introDelay = parseInt(ba.getAttribute("data-intro-delay"), 10) || 1350;
     var baHandle = ba.querySelector(".ba__handle");
     var baSlide = ba.closest(".slide");
     var baPos = 50;
     var baDragging = false;
     var baIntro = null;
-    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     var setPos = function (p) {
       baPos = Math.max(0, Math.min(100, p));
@@ -372,14 +375,46 @@
         tween(job, 0, 100, 1100, easeInOut, function () {
           tween(job, 100, 50, 800, easeOut, function () { if (baIntro === job) baIntro = null; });
         });
-      }, 1350);
+      }, introDelay);
     });
 
     baSlide.addEventListener("slide:leave", function () {
       stopIntro();
       endDrag();
     });
-  }
+  };
+
+  Array.prototype.forEach.call(document.querySelectorAll(".ba"), initBeforeAfter);
+
+  /* ---------- Day / night toggle for a comparison card (slide 5) ---------- */
+  Array.prototype.forEach.call(document.querySelectorAll(".daynight"), function (group) {
+    var target = document.getElementById(group.getAttribute("data-target"));
+    var buttons = group.querySelectorAll(".daynight__btn");
+    if (!target) return;
+
+    var setMode = function (mode) {
+      target.classList.toggle("is-night", mode === "night");
+      Array.prototype.forEach.call(buttons, function (b) {
+        var on = b.getAttribute("data-mode") === mode;
+        b.classList.toggle("is-selected", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    };
+
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); });
+      // Mouse clicks shouldn't leave focus here, so Space keeps advancing slides
+      b.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    });
+    ["touchstart", "touchend"].forEach(function (t) {
+      group.addEventListener(t, function (e) { e.stopPropagation(); }, { passive: true });
+    });
+
+    // Each visit opens on the daytime render
+    group.closest(".slide").addEventListener("slide:leave", function () {
+      setTimeout(function () { setMode("day"); }, TRANSITION_MS);
+    });
+  });
 
   /* ---------- Init ---------- */
   totalEl.textContent = pad(total);

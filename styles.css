@@ -1222,6 +1222,262 @@ body {
 }
 
 /* --------------------------------------------------------------------------
+   Slide 5: The Bar Renovation
+   -------------------------------------------------------------------------- */
+.slide--bar {
+  background:
+    radial-gradient(70% 60% at 100% 100%, rgba(232, 220, 200, 0.7) 0%, rgba(243, 236, 224, 0) 70%),
+    var(--sand);
+  display: grid;
+  grid-template-columns: 58fr 42fr;
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 2.8cqw;
+  row-gap: 3.4cqh;
+  padding: calc(var(--pad-y) + 1cqh) var(--pad-x) 14cqh;
+}
+
+.bar__header { grid-column: 1 / -1; }
+
+.bar__label {
+  font-size: clamp(8px, 0.95cqw, 18px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tan);
+}
+
+.bar__label .sep {
+  display: inline-block;
+  margin: 0 0.9em;
+  opacity: 0.7;
+}
+
+.bar__heading {
+  margin-top: 1.8cqh;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 3.4cqw;
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--wood);
+}
+
+/* Slider card + toggle */
+.bar__compare {
+  display: flex;
+  flex-direction: column;
+  gap: 2cqh;
+  min-height: 0;
+}
+
+/* Landscape variant of the slide 3 comparison card: fills the column */
+.ba--wide {
+  flex: 1;
+  aspect-ratio: auto;
+  max-height: none;
+  min-height: 0;
+  box-shadow: 0 40px 70px -34px rgba(46, 28, 18, 0.6), 0 6px 16px rgba(46, 28, 18, 0.1);
+}
+
+.ba__img--night {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+.ba.is-night .ba__img--night { opacity: 1; }
+
+.daynight {
+  align-self: flex-start;
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--beige);
+  box-shadow: inset 0 1px 2px rgba(46, 28, 18, 0.08);
+}
+
+.daynight__btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  min-width: 5.6cqw;
+  padding: 0.7em 1.5em 0.65em;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--wood);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(9px, 0.85cqw, 16px);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+}
+
+.daynight__btn:hover { background: rgba(251, 248, 242, 0.55); }
+
+.daynight__btn.is-selected {
+  background: var(--wood);
+  color: var(--off-white);
+  box-shadow: 0 4px 12px -4px rgba(46, 28, 18, 0.5);
+}
+
+.daynight__btn:focus-visible { outline: 2px solid var(--tan); outline-offset: 2px; }
+
+/* Right column: plan + features */
+.bar__side {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6cqh;
+  min-height: 0;
+}
+
+.plan {
+  margin: 0;
+  flex: none;
+  padding: 1.4cqw 1.6cqw;
+  border-radius: var(--radius);
+  background: var(--beige);
+  box-shadow: 0 18px 34px -26px rgba(46, 28, 18, 0.45);
+}
+
+.plan__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 34cqh;
+  overflow: visible;
+}
+
+.plan__path { fill: rgba(163, 154, 140, 0.32); }
+.plan__canopy { fill: rgba(185, 138, 94, 0.2); stroke: rgba(185, 138, 94, 0.55); stroke-width: 1; stroke-dasharray: 3 5; }
+
+.plan__counter {
+  fill: none;
+  stroke: var(--wood);
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.plan__stool,
+.plan__table {
+  fill: var(--off-white);
+  stroke: var(--wood);
+  stroke-width: 1.6;
+}
+
+.plan__table { fill: rgba(251, 248, 242, 0.7); }
+
+.plan__pop > * {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+}
+
+.plan__steps ellipse { fill: rgba(74, 46, 31, 0.55); }
+.plan__walk { fill: none; stroke: rgba(74, 46, 31, 0.5); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 0.1 7; }
+
+.plan__arrow {
+  fill: none;
+  stroke: var(--tan);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plan__text {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  fill: var(--wood);
+}
+
+.plan__label { text-anchor: middle; }
+.plan__text--end { text-anchor: end; }
+.plan__text--path { text-anchor: middle; letter-spacing: 0.14em; text-transform: uppercase; font-size: 10px; }
+.plan__prep { text-anchor: middle; font-family: var(--font-heading); font-style: italic; font-size: 15px; letter-spacing: 0; }
+
+.plan__text,
+.plan__arrow,
+.plan__steps { opacity: 0; }
+
+/* Draw sequence: counters, then stools/tables, then arrows and labels */
+.slide.is-active .plan__counter {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s cubic-bezier(0.65, 0, 0.35, 1) 1.25s;
+}
+
+.slide.is-active .plan__pop > * {
+  transform: none;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) calc(2.1s + var(--n, 0) * 0.06s);
+}
+
+.plan__pop > :nth-child(2) { --n: 1; }
+.plan__pop > :nth-child(3) { --n: 2; }
+.plan__pop > :nth-child(4) { --n: 3; }
+.plan__pop > :nth-child(5) { --n: 4; }
+.plan__pop > :nth-child(6) { --n: 5; }
+
+.slide.is-active .plan__text,
+.slide.is-active .plan__arrow,
+.slide.is-active .plan__steps {
+  opacity: 1;
+  transition: opacity 0.7s var(--ease) 2.55s;
+}
+
+.slide.is-leaving .plan__counter { stroke-dashoffset: 0; }
+.slide.is-leaving .plan__pop > * { transform: none; }
+.slide.is-leaving .plan__text,
+.slide.is-leaving .plan__arrow,
+.slide.is-leaving .plan__steps { opacity: 1; }
+
+/* Feature rows */
+.features {
+  list-style: none;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.6cqh;
+}
+
+.feature {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1.2cqw;
+  align-items: start;
+}
+
+.feature__icon {
+  width: clamp(18px, 1.9cqw, 36px);
+  height: auto;
+  margin-top: 0.1em;
+  fill: none;
+  stroke: var(--tan);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.feature__title {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(10px, 1.3cqw, 25px);
+  line-height: 1.1;
+  color: var(--wood);
+}
+
+.feature__text {
+  margin-top: 0.5cqh;
+  font-size: clamp(8px, 0.9cqw, 17px);
+  line-height: 1.5;
+  color: rgba(74, 46, 31, 0.75);
+}
+
+/* --------------------------------------------------------------------------
    Presenter controls
    -------------------------------------------------------------------------- */
 .controls {
@@ -1483,6 +1739,29 @@ body {
   .texture img { height: 22cqw; border-radius: 12px; }
   .texture__name { font-size: 3.9cqw; padding: 0 1cqw; }
   .texture__note { font-size: 2.8cqw; padding: 0 1cqw; }
+
+  /* Slide 5: header, slider + toggle, plan, features; scrolls inside */
+  .slide--bar {
+    display: block;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+    padding: calc(var(--pad-y) + 2cqw) var(--pad-x) calc(4.6cqh + 5cqh + 24px);
+  }
+  .slide--bar::-webkit-scrollbar { display: none; }
+  .bar__label { font-size: 2.7cqw; }
+  .bar__heading { margin-top: 1.4cqh; font-size: 8.4cqw; }
+  .bar__compare { margin-top: 3cqh; gap: 2.4cqw; }
+  .ba--wide { flex: none; aspect-ratio: 4 / 3; border-radius: 20px; }
+  .daynight__btn { font-size: 2.9cqw; min-width: 20cqw; }
+  .bar__side { margin-top: 4cqh; gap: 3.4cqh; }
+  .plan { padding: 3.4cqw; border-radius: 20px; }
+  .plan__svg { max-height: none; }
+  .features { gap: 2.6cqh; }
+  .feature { column-gap: 3.4cqw; }
+  .feature__icon { width: 6.4cqw; }
+  .feature__title { font-size: 4.6cqw; }
+  .feature__text { font-size: 3.4cqw; }
 
   /* Controls sit over the brown panel here */
   .stage[data-theme="split"] .controls {

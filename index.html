@@ -259,10 +259,103 @@
       </section>
     </section>
 
-    <section class="slide slide--placeholder" data-theme="light" aria-roledescription="slide" aria-label="5 of 8: The Bar Renovation">
-      <p class="ph__eyebrow reveal" style="--i:0">Board &amp; Brew <span class="sep">|</span> Business Proposal</p>
-      <p class="ph__num reveal" style="--i:1">05</p>
-      <h2 class="ph__title reveal" style="--i:2">The Bar Renovation</h2>
+    <!-- 05 The Bar Renovation -->
+    <section class="slide slide--bar" data-theme="light" aria-roledescription="slide" aria-label="5 of 8: The Bar Renovation">
+      <header class="bar__header">
+        <p class="bar__label reveal" style="--i:0">05 <span class="sep">|</span> The Bar Renovation</p>
+        <h2 class="bar__heading reveal" style="--i:1">The signature bar under the tree</h2>
+      </header>
+
+      <div class="bar__compare">
+        <div class="ba ba--wide reveal-card" id="barCompare" data-no-advance data-intro-delay="1150" style="--d:0.5s">
+          <img class="ba__img" src="images/slide5-before.jpg" alt="The seating area under the tree today, with white plastic chairs and red umbrellas" draggable="false">
+          <div class="ba__after">
+            <img class="ba__img ba__img--day" src="images/slide1-day.jpg" alt="Daytime render of the new L-shaped bar under the tree, with thatched pergola and rattan stools" draggable="false">
+            <img class="ba__img ba__img--night" src="images/slide1-night.jpg" alt="Night render of the same bar, with the tree and pergola lit by string lights and lanterns" draggable="false" loading="lazy">
+          </div>
+          <span class="ba__tag ba__tag--before">Before</span>
+          <span class="ba__tag ba__tag--after">After</span>
+          <div class="ba__divider" aria-hidden="true"></div>
+          <button class="ba__handle" type="button" role="slider" aria-label="Before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg>
+          </button>
+        </div>
+
+        <div class="daynight reveal" style="--i:6" role="group" aria-label="Show the new bar by day or by night" data-no-advance data-target="barCompare">
+          <button class="daynight__btn is-selected" type="button" data-mode="day" aria-pressed="true">Day</button>
+          <button class="daynight__btn" type="button" data-mode="night" aria-pressed="false">Night</button>
+        </div>
+      </div>
+
+      <div class="bar__side">
+        <figure class="plan reveal-card" style="--d:0.8s">
+          <svg class="plan__svg" viewBox="0 0 480 270" role="img" aria-labelledby="planTitle">
+            <title id="planTitle">Top-down plan: an L-shaped bar under the tree. The outside counter faces the path to the Cokes bridge; the inside counter faces seating under the tree.</title>
+            <!-- path to the bridge -->
+            <rect class="plan__path" x="0" y="224" width="480" height="46"/>
+            <g class="plan__steps">
+              <ellipse cx="34" cy="240" rx="3.4" ry="5.4" transform="rotate(80 34 240)"/>
+              <ellipse cx="50" cy="252" rx="3.4" ry="5.4" transform="rotate(80 50 252)"/>
+              <ellipse cx="68" cy="240" rx="3.4" ry="5.4" transform="rotate(80 68 240)"/>
+              <ellipse cx="84" cy="252" rx="3.4" ry="5.4" transform="rotate(80 84 252)"/>
+              <ellipse cx="102" cy="240" rx="3.4" ry="5.4" transform="rotate(80 102 240)"/>
+              <path class="plan__walk" d="M122 247H206"/>
+            </g>
+            <text class="plan__text plan__text--path" x="300" y="251">Path to the Cokes bridge</text>
+            <!-- tree canopy -->
+            <circle class="plan__canopy" cx="300" cy="104" r="112"/>
+            <!-- seating under the tree -->
+            <g class="plan__pop">
+              <circle class="plan__table" cx="408" cy="70" r="11"/>
+              <circle class="plan__table" cx="446" cy="116" r="11"/>
+              <circle class="plan__table" cx="404" cy="158" r="11"/>
+            </g>
+            <text class="plan__text plan__label" x="430" y="194">Seating under</text>
+            <text class="plan__text plan__label" x="430" y="208">the tree</text>
+            <!-- L-shaped bar -->
+            <path class="plan__counter" d="M150 150H332V36" pathLength="1"/>
+            <text class="plan__text plan__prep" x="250" y="100">Bar &amp; prep</text>
+            <text class="plan__text plan__text--end" x="140" y="146" text-anchor="end">Outside</text>
+            <text class="plan__text plan__text--end" x="140" y="160" text-anchor="end">counter</text>
+            <text class="plan__text plan__text--end" x="318" y="44" text-anchor="end">Inside counter</text>
+            <!-- stools -->
+            <g class="plan__pop">
+              <circle class="plan__stool" cx="184" cy="172" r="7"/>
+              <circle class="plan__stool" cx="241" cy="172" r="7"/>
+              <circle class="plan__stool" cx="298" cy="172" r="7"/>
+              <circle class="plan__stool" cx="354" cy="62" r="7"/>
+              <circle class="plan__stool" cx="354" cy="96" r="7"/>
+              <circle class="plan__stool" cx="354" cy="130" r="7"/>
+            </g>
+            <!-- service arrow toward the path -->
+            <path class="plan__arrow" d="M218 190L241 212L264 190"/>
+          </svg>
+        </figure>
+
+        <ul class="features">
+          <li class="feature reveal" style="--i:16">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M9 9L4 12l5 3M15 9l5 3-5 3M4 12h5M15 12h5"/></svg>
+            <div>
+              <h3 class="feature__title">Two-sided service</h3>
+              <p class="feature__text">One counter serves passers-by on the path, the other serves guests seated under the tree.</p>
+            </div>
+          </li>
+          <li class="feature reveal" style="--i:17">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10l9-6 9 6M6 8.5V20M18 8.5V20M3 20h18M9 20v-5h6v5"/></svg>
+            <div>
+              <h3 class="feature__title">Built for the setting</h3>
+              <p class="feature__text">Weathered timber, a thatched pergola and woven rattan stools, with the tree as a natural canopy.</p>
+            </div>
+          </li>
+          <li class="feature reveal" style="--i:18">
+            <svg class="feature__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v4M6.5 14a5.5 5.5 0 0 1 11 0zM12 17.5v2.5M7.5 17l-1.5 2M16.5 17l1.5 2"/></svg>
+            <div>
+              <h3 class="feature__title">Glows after dark</h3>
+              <p class="feature__text">Rattan pendants, festoon bulbs and lights wrapped through the tree make it visible from the bridge at night.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section class="slide slide--placeholder" data-theme="light" aria-roledescription="slide" aria-label="6 of 8: Menu Concept">
