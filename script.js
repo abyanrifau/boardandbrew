@@ -92,6 +92,12 @@
   document.addEventListener("keydown", function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
 
+    // While the full-screen menu is open, keys scroll it or close it; they never change slides
+    if (stage.classList.contains("is-menu-open")) {
+      if (e.key === "Escape") { e.preventDefault(); closeMenu(); }
+      return;
+    }
+
     // Let a keyboard-focused button handle its own Enter/Space
     var onButton = e.target.closest && e.target.closest("button, a");
     if (onButton && (e.key === "Enter" || e.key === " ")) return;
@@ -170,6 +176,8 @@
   }
 
   window.addEventListener("wheel", function (e) {
+    // The open menu overlay scrolls natively
+    if (stage.classList.contains("is-menu-open")) return;
     // A slide that scrolls internally (stacked portrait layouts) scrolls first
     if (Math.abs(e.deltaY) > Math.abs(e.deltaX) && canScroll(slides[index], e.deltaY) &&
         Date.now() - lastNavAt > WHEEL_COOLDOWN_MS) {
@@ -205,8 +213,8 @@
   var touchX = 0, touchY = 0, touchT = 0, touching = false;
 
   stage.addEventListener("touchstart", function (e) {
-    // Horizontal scroll rows handle their own sideways drags
-    if (e.touches.length !== 1 || (e.target.closest && e.target.closest("[data-no-swipe]"))) {
+    // Horizontal scroll rows handle their own sideways drags; the menu overlay is modal
+    if (e.touches.length !== 1 || stage.classList.contains("is-menu-open") || (e.target.closest && e.target.closest("[data-no-swipe]"))) {
       touching = false;
       return;
     }
@@ -415,6 +423,69 @@
       setTimeout(function () { setMode("day"); }, TRANSITION_MS);
     });
   });
+
+  /* ---------- Menu concept (slide 6): page toggle + full-screen overlay ---------- */
+  var menuOverlay = document.getElementById("menuOverlay");
+  var menuOpenBtn = document.getElementById("menuOpen");
+  var menuSpread = document.getElementById("menuSpread");
+
+  function openMenu() {
+    if (!menuOverlay) return;
+    var holder = menuOverlay.querySelector(".menu-overlay__pages");
+    if (!holder.children.length) {
+      Array.prototype.forEach.call(menuSpread.querySelectorAll(".menu-page"), function (pg) {
+        var copy = pg.cloneNode(true);
+        copy.removeAttribute("style");
+        holder.appendChild(copy);
+      });
+    }
+    menuOverlay.querySelector(".menu-overlay__scroll").scrollTop = 0;
+    menuOverlay.classList.add("is-open");
+    menuOverlay.setAttribute("aria-hidden", "false");
+    stage.classList.add("is-menu-open");
+    // Focus the scroller (not Close) so Space and arrow keys scroll the menu
+    menuOverlay.querySelector(".menu-overlay__scroll").focus({ preventScroll: true });
+  }
+
+  function closeMenu() {
+    if (!menuOverlay || !menuOverlay.classList.contains("is-open")) return;
+    menuOverlay.classList.remove("is-open");
+    menuOverlay.setAttribute("aria-hidden", "true");
+    stage.classList.remove("is-menu-open");
+    // Hand focus back to the page so Space and arrows drive the deck again
+    if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+  }
+
+  if (menuOverlay && menuOpenBtn && menuSpread) {
+    menuOpenBtn.addEventListener("click", openMenu);
+    menuOpenBtn.addEventListener("mousedown", function (e) { e.preventDefault(); });
+    menuOverlay.querySelector(".menu-overlay__close").addEventListener("click", closeMenu);
+    // Clicking the sand around the pages also closes it
+    menuOverlay.addEventListener("click", function (e) {
+      if (!e.target.closest(".menu-page") && !e.target.closest(".menu-overlay__close")) closeMenu();
+    });
+    menuSpread.closest(".slide").addEventListener("slide:leave", closeMenu);
+
+    // Mobile: show one page at a time
+    var menuToggle = menuSpread.closest(".slide").querySelector(".mc__toggle");
+    if (menuToggle) {
+      Array.prototype.forEach.call(menuToggle.querySelectorAll(".mc__toggle-btn"), function (b) {
+        b.addEventListener("mousedown", function (e) { e.preventDefault(); });
+        b.addEventListener("click", function () {
+          var pageName = b.getAttribute("data-page");
+          menuSpread.setAttribute("data-page", pageName);
+          Array.prototype.forEach.call(menuToggle.querySelectorAll(".mc__toggle-btn"), function (o) {
+            var on = o === b;
+            o.classList.toggle("is-selected", on);
+            o.setAttribute("aria-pressed", on ? "true" : "false");
+          });
+        });
+      });
+      ["touchstart", "touchend"].forEach(function (t) {
+        menuToggle.addEventListener(t, function (e) { e.stopPropagation(); }, { passive: true });
+      });
+    }
+  }
 
   /* ---------- Init ---------- */
   totalEl.textContent = pad(total);

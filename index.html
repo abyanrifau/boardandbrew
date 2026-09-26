@@ -358,10 +358,110 @@
       </div>
     </section>
 
-    <section class="slide slide--placeholder" data-theme="light" aria-roledescription="slide" aria-label="6 of 8: Menu Concept">
-      <p class="ph__eyebrow reveal" style="--i:0">Board &amp; Brew <span class="sep">|</span> Business Proposal</p>
-      <p class="ph__num reveal" style="--i:1">06</p>
-      <h2 class="ph__title reveal" style="--i:2">Menu Concept</h2>
+    <!-- 06 Menu Concept -->
+    <section class="slide slide--menu" data-theme="dark" aria-roledescription="slide" aria-label="6 of 8: Menu Concept">
+      <header class="mc__header">
+        <p class="mc__label reveal" style="--i:0">06 <span class="sep">|</span> Menu Concept</p>
+        <h2 class="mc__heading reveal" style="--i:1">A menu people want to photograph</h2>
+      </header>
+
+      <div class="mc__toggle" role="group" aria-label="Choose menu page" data-no-advance>
+        <button class="mc__toggle-btn is-selected" type="button" data-page="shakes" aria-pressed="true">Shakes</button>
+        <button class="mc__toggle-btn" type="button" data-page="bites" aria-pressed="false">Bites</button>
+      </div>
+
+      <div class="mc__spread" id="menuSpread" data-page="shakes">
+        <article class="menu-page menu-page--shakes" style="--rot:-1.5deg; --d:0.45s; --pd:0s" aria-label="Signature Shakes">
+          <header class="menu-page__head">
+            <p class="menu-page__brand">Board &amp; Brew</p>
+            <h3 class="menu-page__title">Signature Shakes</h3>
+          </header>
+          <ol class="menu-items">
+            <li class="menu-item" style="--n:0">
+              <span class="menu-item__art"><img src="images/menu/oreo-overboard.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Oreo Overboard</h4>
+                <p class="menu-item__desc">Vanilla ice cream blended with crushed Oreos and fresh milk, topped with whipped cream and a whole Oreo.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:1">
+              <span class="menu-item__art"><img src="images/menu/nutella-rush.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Nutella Rush</h4>
+                <p class="menu-item__desc">Nutella and chocolate ice cream blended thick, in a Nutella-lined glass with whipped cream and hazelnuts.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:2">
+              <span class="menu-item__art"><img src="images/menu/peanut-punch.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Peanut Punch</h4>
+                <p class="menu-item__desc">Peanut butter, banana and vanilla ice cream, finished with a peanut drizzle and crushed peanuts.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:3">
+              <span class="menu-item__art"><img src="images/menu/milo.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Milo</h4>
+                <p class="menu-item__desc">A thick chocolate malt shake, heaped with Milo powder the way it should be.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:4">
+              <span class="menu-item__art"><img src="images/menu/biscoff-caramel.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Biscoff Caramel</h4>
+                <p class="menu-item__desc">Biscoff spread, caramel and vanilla ice cream in a crushed-biscuit rim.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="menu-page__foot">Thulusdhoo &middot; Maldives</p>
+        </article>
+        <article class="menu-page menu-page--bites" style="--rot:1.5deg; --d:0.75s; --pd:0.1s" aria-label="Bites">
+          <header class="menu-page__head">
+            <p class="menu-page__brand">Board &amp; Brew</p>
+            <h3 class="menu-page__title">Bites</h3>
+          </header>
+          <ol class="menu-items">
+            <li class="menu-item" style="--n:0">
+              <span class="menu-item__art"><img src="images/menu/smash-burger.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Smash Burger</h4>
+                <p class="menu-item__desc">Two smashed beef patties, melted cheese, caramelised onions, pickles and house sauce in a toasted brioche bun.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:1">
+              <span class="menu-item__art"><img src="images/menu/margherita-pizza.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Margherita Pizza</h4>
+                <p class="menu-item__desc">Tomato sauce, fresh mozzarella, basil and a drizzle of olive oil.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:2">
+              <span class="menu-item__art"><img src="images/menu/tuna-melt.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Maldivian Tuna Melt</h4>
+                <p class="menu-item__desc">Tuna with fresh coconut, onion and chilli, mas huni style, grilled with melted cheese.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:3">
+              <span class="menu-item__art"><img src="images/menu/loaded-fries.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Loaded Fries</h4>
+                <p class="menu-item__desc">Crispy fries with cheese sauce, jalapeños, spring onion and house sauce.</p>
+              </div>
+            </li>
+            <li class="menu-item" style="--n:4">
+              <span class="menu-item__art"><img src="images/menu/avo-toast.png" alt="" draggable="false"></span>
+              <div class="menu-item__text">
+                <h4 class="menu-item__name">Avo Toast</h4>
+                <p class="menu-item__desc">Smashed avocado on toasted sourdough with a poached egg, chilli flakes and lime.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="menu-page__foot">Thulusdhoo &middot; Maldives</p>
+        </article>
+      </div>
+
+      <button class="mc__open reveal" style="--i:14" type="button" id="menuOpen" aria-haspopup="dialog" aria-controls="menuOverlay">View menu full screen</button>
     </section>
 
     <section class="slide slide--placeholder" data-theme="light" aria-roledescription="slide" aria-label="7 of 8: The Rest of the Space">
@@ -377,6 +477,17 @@
     </section>
 
     <div class="grain" aria-hidden="true"></div>
+
+    <!-- Full-screen menu overlay (slide 6); pages are cloned in by script.js -->
+    <div class="menu-overlay" id="menuOverlay" role="dialog" aria-modal="true" aria-label="Board &amp; Brew menu" aria-hidden="true" data-no-advance data-no-swipe>
+      <div class="menu-overlay__scroll" tabindex="-1">
+        <div class="menu-overlay__pages"></div>
+      </div>
+      <button class="menu-overlay__close" type="button" aria-label="Close menu">
+        <span>Close</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
 
     <!-- Presenter chrome -->
     <nav class="controls" id="controls" aria-label="Slide controls">
